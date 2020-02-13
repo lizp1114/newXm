@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class AuthorizeContrller {
     @Autowired
@@ -21,7 +23,9 @@ public class AuthorizeContrller {
     private String redirect_uri;
 
     @GetMapping("/callback")
-    public String callback(@RequestParam(name="code")String code,@RequestParam(name="state")String state){
+    public String callback(@RequestParam(name="code")String code,
+                           @RequestParam(name="state")String state,
+                           HttpServletRequest request){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(client_id);
         accessTokenDTO.setClient_secret(client_secret);
@@ -29,9 +33,15 @@ public class AuthorizeContrller {
         accessTokenDTO.setRedirect_uri(redirect_uri);
         accessTokenDTO.setState(state);
         String accessToken = gitHubProvider.getAccessToken(accessTokenDTO);
-        //gitHubProvider.getUser("df831570cee04043aacb3835084b0536d045eb96");
         GitHubUser user = gitHubProvider.getUser(accessToken);
-        System.out.println(user.getName());
-        return "index";
+
+        /*根据返回的值是否为空判断用户是否登录成功*/
+        if (user!=null){
+            //setAttribute():在JSP内置对象session和request都有这个方法，这个方法作用就是保存数据，然后还可以用getAttribute方法来取出。
+            request.getSession().setAttribute("user",user);
+            return "redirect:/";
+        }else{
+            return "redirect:/";
+        }
     }
 }
