@@ -7,3 +7,9 @@ github:
     sercet: 2b66b95c812a1dfd59b00d2294fb78fe5480498a
   redirect:
     url: http://localhost:8991/callback
+spring:
+  datasource:
+    username: li
+    password: 123456
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/tan
