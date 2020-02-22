@@ -44,14 +44,16 @@ public class ArticleContrller {
         /*判断用户是否登录*/
         Cookie[] cookies = request.getCookies();
         User user=null;
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().equals("token")){
-                String token = cookie.getValue();
-                user = userService.queryToken(token);
-                if(user!=null){
-                    request.getSession().setAttribute("user",user);
+        if(cookies!=null&&cookies.length!=0){
+            for (Cookie cookie : cookies) {
+                if(cookie.getName().equals("token")){
+                    String token = cookie.getValue();
+                    user = userService.queryToken(token);
+                    if(user!=null){
+                        request.getSession().setAttribute("user",user);
+                    }
+                    break;
                 }
-                break;
             }
         }
         /*如果未登录显示相对应的信息*/

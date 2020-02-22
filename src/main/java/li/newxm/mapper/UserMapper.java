@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface UserMapper {
     /*插入用户信息*/
-    @Insert("insert into user  values (default,#{ACCOUNT_ID},#{name},#{token},#{gmt_Create},#{gmt_Modified})")
+    @Insert("insert into user  values (default,#{ACCOUNT_ID},#{name},#{token},#{gmt_Create},#{gmt_Modified},#{avatar_url})")
     void insertUser(User user);
 
     /*查询用户的token信息*/
