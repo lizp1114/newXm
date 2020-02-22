@@ -54,7 +54,7 @@ public class AuthorizeContrller {
             user.setToken(token);
             user.setGmt_Create(System.currentTimeMillis());
             user.setGmt_Modified(user.getGmt_Create());
-            user.setACCOUNT_ID(gitHubUser.getAvatar_url());
+            user.setAvatar_url(gitHubUser.getAvatar_url());
             userService.insertUser(user);
             //将使用UUID自定义的token存储到Cookie中
             response.addCookie(new Cookie("token",token));

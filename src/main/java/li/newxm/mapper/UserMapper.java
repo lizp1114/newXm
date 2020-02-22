@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
     /*插入用户信息*/
@@ -15,4 +17,7 @@ public interface UserMapper {
     /*查询用户的token信息*/
     @Select("SELECT * FROM USER WHERE TOKEN = #{token}")
      User queryToken(@Param("token") String token);
+
+    @Select("select * from user where id=#{id}")
+    User queryById(@Param("id") Integer id);
 }

@@ -5,6 +5,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    <style type="text/css">
+        .media-object{
+            width: 2.5vw;
+            height: 4.5vh;
+        }
+        .text_desc{
+            font-size: 12px;
+            font-weight: normal;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
 <!--头部导航栏-->
@@ -42,7 +53,33 @@
         </div>
     </div>
 </nav>
-
+<div class="container-fluid" style="margin: 30px;background-color: white">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+            <h3><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h3>
+            <hr>
+            <div class="media" th:each="list:${articleList}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-rounded" th:src="${list.user.avatar_url}" >
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${list.title}"></h4>
+                    <span class="text_desc">
+                        <span th:text="${list.getComment_count()}"></span> 个回复 •
+                        <span th:text="${list.getView_count()}"></span> 次浏览 •
+                        <span th:text="${list.getLike_count()}"></span>个点赞
+                        <span th:text="${#dates.format(list.getGmt_create(),'yyyy MMMM dd')}"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
+            <h3>热门话题</h3>
+        </div>
+    </div>
+</div>
 
 </body>
 <!--jq必须放在bootstrap前加载-->

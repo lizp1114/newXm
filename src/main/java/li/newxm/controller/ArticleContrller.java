@@ -29,9 +29,9 @@ public class ArticleContrller {
     @PostMapping("/publish")
     public String doAtricle(@RequestParam("title")String title, @RequestParam("description")String description,
                             @RequestParam("tag")String tag, HttpServletRequest request, Model model){
-        model.addAttribute("title","title");
-        model.addAttribute("description","description");
-        model.addAttribute("tag","tag");
+        model.addAttribute("title",title);
+        model.addAttribute("description",description);
+        model.addAttribute("tag",tag);
         /*判断input中是否有值*/
        if(title==null||title==""){
             model.addAttribute("error","标题不为空!");

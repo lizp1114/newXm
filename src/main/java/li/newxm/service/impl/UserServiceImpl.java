@@ -22,4 +22,9 @@ public class UserServiceImpl implements UserService {
     public User queryToken(String token) {
         return userMapper.queryToken(token);
     }
+
+    @Override
+    public User queryById(Integer creator) {
+        return userMapper.queryById(creator);
+    }
 }
