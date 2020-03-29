@@ -1,12 +1,15 @@
 package li.newxm.service;
 
-import li.newxm.dto.ArticleDTO;
+import li.newxm.dto.PageDTO;
 import li.newxm.model.Article;
-
-import java.util.List;
 
 public interface ArticleService {
     void ArticlecCreate(Article article);
 
-    List<ArticleDTO> listAll();
+
+    /*
+     * 分页查询
+     * */
+    PageDTO listAll(Integer page, Integer size);
+
 }

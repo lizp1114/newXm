@@ -1,7 +1,7 @@
 package li.newxm.service.impl;
 
-import li.newxm.dto.AccessTokenDTO;
 import li.newxm.dto.ArticleDTO;
+import li.newxm.dto.PageDTO;
 import li.newxm.mapper.ArticleMapper;
 import li.newxm.model.Article;
 import li.newxm.model.User;
@@ -28,9 +28,24 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDTO> listAll() {
-        List<Article> articleList = articleMapper.listAll();
+    public PageDTO listAll(Integer page, Integer size) {
+        PageDTO pageDTO = new PageDTO();
+        //总条数
+        Integer totalCount = articleMapper.count();
+        pageDTO.setPagination(totalCount,page,size);
+        //页数范围限定
+        if(page<1){
+            page=1;
+        }
+        if (page>pageDTO.getTotalpage()){
+            page=pageDTO.getTotalpage();
+        }
+        //
+        Integer offset =size*(page-1);
+
+        List<Article> articleList = articleMapper.listAll(offset,size);
         List<ArticleDTO> articleDTOList = new ArrayList<>();
+
         for (Article article:articleList){
             User user = userService.queryById(article.getCreator());
             ArticleDTO articleDTO = new ArticleDTO();
@@ -38,6 +53,8 @@ public class ArticleServiceImpl implements ArticleService {
             articleDTO.setUser(user);
             articleDTOList.add(articleDTO);
         }
-        return articleDTOList;
+        pageDTO.setArticleDTOS(articleDTOList);
+
+        return pageDTO;
     }
 }

@@ -4,7 +4,7 @@ server:
 github:
   client:
     id: a2fe7261bc5ed91a27d8
-    sercet: 2b66b95c812a1dfd59b00d2294fb78fe5480498a
+    sercet: 4474eedbc2e31b7c6f0f2349d1b9e074c8b1f10a
   redirect:
     url: http://localhost:8991/callback
 spring:
